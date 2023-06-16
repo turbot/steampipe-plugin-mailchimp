@@ -20,9 +20,11 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			Schema:      ConfigSchema,
 		},
 		TableMap: map[string]*plugin.Table{
-			"mailchimp_authorized_app": tableMailchimpAuthorizedApp(ctx),
-			"mailchimp_campaign":       tableMailchimpCampaign(ctx),
-			"mailchimp_list":           tableMailchimpList(ctx),
+			"mailchimp_authorized_app":  tableMailchimpAuthorizedApp(ctx),
+			"mailchimp_campaign":        tableMailchimpCampaign(ctx),
+			"mailchimp_list":            tableMailchimpList(ctx),
+			"mailchimp_template":        tableMailchimpTemplate(ctx),
+			"mailchimp_template_folder": tableMailchimpTemplateFolder(ctx),
 		},
 	}
 

@@ -46,6 +46,14 @@ func tableMailchimpAuthorizedApp(_ context.Context) *plugin.Table {
 				Description: "An array of usernames for users who have linked the app.",
 				Type:        proto.ColumnType_JSON,
 			},
+
+			// Standard Steampipe columns
+			{
+				Name:        "title",
+				Description: "The title of the resource.",
+				Type:        proto.ColumnType_STRING,
+				Transform:   transform.FromField("Name"),
+			},
 		},
 	}
 }
@@ -76,6 +84,8 @@ func listAuthorizedApps(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 		Offset: 0,
 	}
 
+	last := 0
+
 	for {
 		apps, err := client.GetAuthorizedApps(&params)
 		if err != nil {
@@ -87,15 +97,14 @@ func listAuthorizedApps(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 			d.StreamListItem(ctx, list)
 		}
 
-		if len(apps.Apps) == 0 || len(apps.Apps) < int(maxLimit) {
-			break
-		}
-		if apps.TotalItems > 0 {
-			params.Offset += int(maxLimit)
+		last = params.Offset + len(apps.Apps)
+		if last >= apps.TotalItems {
+			return nil, nil
+		} else {
+			params.Offset = last
 		}
 	}
 
-	return nil, nil
 }
 
 //// HYDRATE FUNCTIONS

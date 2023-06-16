@@ -2,6 +2,7 @@ package mailchimp
 
 import (
 	"context"
+	"time"
 
 	"github.com/hanzoai/gochimp3"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
@@ -16,8 +17,15 @@ func tableMailchimpList(_ context.Context) *plugin.Table {
 		Name:        "mailchimp_list",
 		Description: "Get information about all lists in the account.",
 		List: &plugin.ListConfig{
-			Hydrate:    listLists,
-			KeyColumns: plugin.OptionalColumns([]string{"date_created"}),
+			Hydrate: listLists,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:       "date_created",
+					Operators:  []string{">", ">=", "<", "<=", "="},
+					Require:    plugin.Optional,
+					CacheMatch: "exact",
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: plugin.AllColumns([]string{"id"}),
@@ -115,6 +123,14 @@ func tableMailchimpList(_ context.Context) *plugin.Table {
 				Description: "Stats for the list. Many of these are cached for at least five minutes.",
 				Type:        proto.ColumnType_JSON,
 			},
+
+			// Standard Steampipe columns
+			{
+				Name:        "title",
+				Description: "The title of the resource.",
+				Type:        proto.ColumnType_STRING,
+				Transform:   transform.FromField("Name"),
+			},
 		},
 	}
 }
@@ -132,6 +148,24 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 
 	params := gochimp3.ListQueryParams{}
+	if d.Quals["date_created"] != nil {
+		for _, q := range d.Quals["date_created"].Quals {
+			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
+			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.DateTime)
+			switch q.Operator {
+			case ">=", ">":
+				params.SinceDateCreated = timestamp
+			case "<":
+				params.BeforeDateCreated = timestamp
+			case "<=":
+				params.SinceDateCreated = timestampAdd
+			case "=":
+				params.SinceDateCreated = timestamp
+				params.BeforeDateCreated = timestampAdd
+			}
+		}
+	}
+
 	lists, err := client.GetLists(&params)
 	if err != nil {
 		logger.Error("mailchimp_list.listLists", "query_error", err)

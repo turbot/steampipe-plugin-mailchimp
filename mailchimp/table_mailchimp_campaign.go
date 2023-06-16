@@ -2,6 +2,7 @@ package mailchimp
 
 import (
 	"context"
+	"time"
 
 	"github.com/hanzoai/gochimp3"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
@@ -16,18 +17,39 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 		Name:        "mailchimp_campaign",
 		Description: "Mailchimp Campaign.",
 		List: &plugin.ListConfig{
-			Hydrate:    listCampaigns,
-			KeyColumns: plugin.OptionalColumns([]string{"create_time", "send_time", "status", "type"}),
+			Hydrate: listCampaigns,
+			KeyColumns: []*plugin.KeyColumn{
+				{
+					Name:       "create_time",
+					Operators:  []string{">", ">=", "<", "<=", "="},
+					Require:    plugin.Optional,
+					CacheMatch: "exact",
+				},
+				{
+					Name:       "send_time",
+					Operators:  []string{">", ">=", "<", "<=", "="},
+					Require:    plugin.Optional,
+					CacheMatch: "exact",
+				},
+				{
+					Name:    "status",
+					Require: plugin.Optional,
+				},
+				{
+					Name:    "type",
+					Require: plugin.Optional,
+				},
+			},
 		},
 		Get: &plugin.GetConfig{
 			KeyColumns: []*plugin.KeyColumn{
 				{
 					Name:    "id",
-					Require: "required",
+					Require: plugin.Required,
 				},
 				{
 					Name:    "status",
-					Require: "optional",
+					Require: plugin.Optional,
 				},
 			},
 			Hydrate: getCampaign,
@@ -142,11 +164,45 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	}
 
 	params := gochimp3.CampaignQueryParams{}
-	if d.EqualsQuals["status"] != nil && d.EqualsQualString("status") != "" {
+	if d.EqualsQuals["status"] != nil {
 		params.Status = d.EqualsQualString("status")
 	}
-	if d.EqualsQuals["type"] != nil && d.EqualsQualString("type") != "" {
+	if d.EqualsQuals["type"] != nil {
 		params.Type = d.EqualsQualString("type")
+	}
+	if d.Quals["create_time"] != nil {
+		for _, q := range d.Quals["create_time"].Quals {
+			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
+			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.DateTime)
+			switch q.Operator {
+			case ">=", ">":
+				params.SinceCreateTime = timestamp
+			case "<":
+				params.BeforeCreateTime = timestamp
+			case "<=":
+				params.BeforeCreateTime = timestampAdd
+			case "=":
+				params.SinceCreateTime = timestamp
+				params.BeforeCreateTime = timestampAdd
+			}
+		}
+	}
+	if d.Quals["send_time"] != nil {
+		for _, q := range d.Quals["send_time"].Quals {
+			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
+			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.DateTime)
+			switch q.Operator {
+			case ">=", ">":
+				params.SinceSendTime = timestamp
+			case "<":
+				params.BeforeSendTime = timestamp
+			case "<=":
+				params.BeforeSendTime = timestampAdd
+			case "=":
+				params.SinceSendTime = timestamp
+				params.BeforeSendTime = timestampAdd
+			}
+		}
 	}
 
 	campaigns, err := client.GetCampaigns(&params)
