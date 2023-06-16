@@ -88,7 +88,7 @@ func tableMailchimpStore(_ context.Context) *plugin.Table {
 			{
 				Name:        "updated_at",
 				Description: "The date and time the store was last updated in ISO 8601 format.",
-				Type:        proto.ColumnType_STRING,
+				Type:        proto.ColumnType_TIMESTAMP,
 			},
 
 			// JSON fields
