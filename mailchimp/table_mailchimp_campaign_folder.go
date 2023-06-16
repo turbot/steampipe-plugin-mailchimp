@@ -11,17 +11,17 @@ import (
 
 //// TABLE DEFINITION
 
-func tableMailchimpTemplateFolder(_ context.Context) *plugin.Table {
+func tableMailchimpCampaignFolder(_ context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "mailchimp_template_folder",
+		Name:        "mailchimp_campaign_folder",
 		Description: "Get a list of an account's registered, connected applications.",
 		List: &plugin.ListConfig{
-			Hydrate: listTemplateFolders,
+			Hydrate: listCampaignFolders,
 		},
 		Columns: []*plugin.Column{
 			{
 				Name:        "id",
-				Description: "A string that uniquely identifies this template folder.",
+				Description: "A string that uniquely identifies this campaign folder.",
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("ID"),
 			},
@@ -32,7 +32,7 @@ func tableMailchimpTemplateFolder(_ context.Context) *plugin.Table {
 			},
 			{
 				Name:        "count",
-				Description: "The number of templates in the folder.",
+				Description: "The number of campaigns in the folder.",
 				Type:        proto.ColumnType_INT,
 			},
 
@@ -49,13 +49,13 @@ func tableMailchimpTemplateFolder(_ context.Context) *plugin.Table {
 
 //// LIST FUNCTION
 
-func listTemplateFolders(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
+func listCampaignFolders(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_template_folder.listTemplateFolders", "client_error", err)
+		logger.Error("mailchimp_campaign_folder.listCampaignFolders", "client_error", err)
 		return nil, err
 	}
 
@@ -68,7 +68,7 @@ func listTemplateFolders(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 		}
 	}
 
-	params := gochimp3.TemplateFolderQueryParams{
+	params := gochimp3.CampaignFolderQueryParams{
 		ExtendedQueryParams: gochimp3.ExtendedQueryParams{
 			Count:  int(maxLimit),
 			Offset: 0,
@@ -78,14 +78,14 @@ func listTemplateFolders(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	last := 0
 
 	for {
-		folders, err := client.GetTemplateFolders(&params)
+		folders, err := client.GetCampaignFolders(&params)
 		if err != nil {
-			logger.Error("mailchimp_template_folder.listTemplateFolders", "query_error", err)
+			logger.Error("mailchimp_campaign_folder.listCampaignFolders", "query_error", err)
 			return nil, err
 		}
 
-		for _, template := range folders.Folders {
-			d.StreamListItem(ctx, template)
+		for _, campaign := range folders.Folders {
+			d.StreamListItem(ctx, campaign)
 		}
 
 		last = params.Offset + len(folders.Folders)
