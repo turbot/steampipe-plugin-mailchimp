@@ -147,7 +147,21 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		return nil, err
 	}
 
-	params := gochimp3.ListQueryParams{}
+	// Limiting the results
+	maxLimit := int32(1000)
+	if d.QueryContext.Limit != nil {
+		limit := int32(*d.QueryContext.Limit)
+		if limit < maxLimit {
+			maxLimit = limit
+		}
+	}
+
+	params := gochimp3.ListQueryParams{
+		ExtendedQueryParams: gochimp3.ExtendedQueryParams{
+			Count:  int(maxLimit),
+			Offset: 0,
+		},
+	}
 	if d.Quals["date_created"] != nil {
 		for _, q := range d.Quals["date_created"].Quals {
 			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
@@ -166,14 +180,25 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 		}
 	}
 
-	lists, err := client.GetLists(&params)
-	if err != nil {
-		logger.Error("mailchimp_list.listLists", "query_error", err)
-		return nil, err
-	}
+	last := 0
 
-	for _, list := range lists.Lists {
-		d.StreamListItem(ctx, list)
+	for {
+		lists, err := client.GetLists(&params)
+		if err != nil {
+			logger.Error("mailchimp_list.listLists", "query_error", err)
+			return nil, err
+		}
+
+		for _, list := range lists.Lists {
+			d.StreamListItem(ctx, list)
+		}
+
+		last = params.Offset + len(lists.Lists)
+		if last >= lists.TotalItems {
+			return nil, nil
+		} else {
+			params.Offset = last
+		}
 	}
 
 	return nil, nil

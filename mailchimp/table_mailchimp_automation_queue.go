@@ -20,7 +20,7 @@ func tableMailchimpAutomationQueue(_ context.Context) *plugin.Table {
 			Hydrate:       listAutomationQueues,
 			KeyColumns: []*plugin.KeyColumn{
 				{
-					Name:    "workflow_email_id",
+					Name:    "email_id",
 					Require: plugin.Required,
 				},
 				{
@@ -30,7 +30,7 @@ func tableMailchimpAutomationQueue(_ context.Context) *plugin.Table {
 			},
 		},
 		Get: &plugin.GetConfig{
-			KeyColumns: plugin.AllColumns([]string{"id", "workflow_id", "workflow_email_id"}),
+			KeyColumns: plugin.AllColumns([]string{"id", "workflow_id", "email_id"}),
 			Hydrate:    getAutomationQueue,
 		},
 		Columns: []*plugin.Column{
@@ -82,8 +82,8 @@ func listAutomationQueues(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	if d.EqualsQuals["workflow_id"] != nil && d.EqualsQualString("workflow_id") != workflowId {
 		return nil, nil
 	}
-	if d.EqualsQualString("workflow_email_id") != "" {
-		workflowEmailId = d.EqualsQualString("workflow_email_id")
+	if d.EqualsQualString("email_id") != "" {
+		workflowEmailId = d.EqualsQualString("email_id")
 	} else {
 		return nil, nil
 	}
@@ -115,7 +115,7 @@ func getAutomationQueue(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 
 	id := d.EqualsQualString("id")
 	workflowId := d.EqualsQualString("workflow_id")
-	workflowEmailId := d.EqualsQualString("workflow_email_id")
+	workflowEmailId := d.EqualsQualString("email_id")
 
 	// Email id and workflow id should not be empty
 	if id == "" || workflowId == "" || workflowEmailId == "" {
