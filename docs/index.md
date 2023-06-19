@@ -5,14 +5,14 @@ icon_url: "/images/plugins/turbot/mailchimp.svg"
 brand_color: "#000000"
 display_name: "mailchimp"
 short_name: "mailchimp"
-description: "Steampipe plugin to query VPN networks, devices and more from mailchimp."
+description: "Steampipe plugin to query audiences, automation workflows, campaigns, and more from Mailchimp."
 og_description: "Query Mailchimp with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/mailchimp-social-graphic.png"
 ---
 
 # Mailchimp + Steampipe
 
-[Mailchimp](https://mailchimp.com) is a zero config VPN which installs on any device in minutes and manages firewall rules.
+[Mailchimp](https://mailchimp.com) is a marketing automation and email marketing platform.
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
@@ -61,21 +61,19 @@ Installing the latest mailchimp plugin will create a config file (`~/.steampipe/
 
 ```hcl
 connection "mailchimp" {
-  plugin       = "mailchimp"
+  plugin = "mailchimp"
 
-  # Required: Set your API Key and Tailnet name
-  # Generate your API Key as per: https://mailchimp.com/kb/1101/api/
-  api_key = "abcde-krSvfN1CNTRL-M67st8X5o1234567"
-  tailnet_name = "example.com"
+  # Required: Set your Mailchimp API Key
+  # Generate your API Key as per: https://mailchimp.com/developer/marketing/guides/quick-start/#generate-your-api-key/
+  # This can also be set via the `MAILCHIMP_API_KEY` environment variable
+  mailchimp_api_key = "08355689e3e6f9fd0f5630362b16b1b5-us21"
 }
 ```
 
-- `api_key` - API Key of the Tailscale account.
-- `tailnet_name` - Name of your Tailnet.
+- `mailchimp_api_key` - API Key of the Mailchimp account.
 
 Environment variables are also available as an alternate configuration method:
-* `TAILSCALE_API_KEY`
-* `TAILSCALE_TAILNET_NAME`
+* `MAILCHIMP_API_KEY`
 
 ## Get involved
 
