@@ -21,6 +21,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		TableMap: map[string]*plugin.Table{
 			"mailchimp_authorized_app":  tableMailchimpAuthorizedApp(ctx),
+			"mailchimp_batch_operation": tableMailchimpBatchOperation(ctx),
 			"mailchimp_campaign":        tableMailchimpCampaign(ctx),
 			"mailchimp_campaign_folder": tableMailchimpCampaignFolder(ctx),
 			"mailchimp_list":            tableMailchimpList(ctx),
