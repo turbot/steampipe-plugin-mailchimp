@@ -91,13 +91,13 @@ func listRoots(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) 
 		return nil, err
 	}
 
-	for {
-		root, err := client.GetRoot(&gochimp3.BasicQueryParams{})
-		if err != nil {
-			logger.Error("mailchimp_root.listRoots", "query_error", err)
-			return nil, err
-		}
-		d.StreamListItem(ctx, root)
-
+	root, err := client.GetRoot(&gochimp3.BasicQueryParams{})
+	if err != nil {
+		logger.Error("mailchimp_root.listRoots", "query_error", err)
+		return nil, err
 	}
+
+	d.StreamListItem(ctx, root)
+
+	return nil, nil
 }

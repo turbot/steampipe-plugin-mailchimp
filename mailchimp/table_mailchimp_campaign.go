@@ -77,6 +77,12 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_TIMESTAMP,
 			},
 			{
+				Name:        "delivery_status_enabled",
+				Description: "Updates on campaigns in the process of sending.",
+				Transform:   transform.FromField("DeliveryStatus.Enabled"),
+				Type:        proto.ColumnType_BOOL,
+			},
+			{
 				Name:        "emails_sent",
 				Description: "The total number of emails sent for this campaign.",
 				Type:        proto.ColumnType_INT,
@@ -123,11 +129,6 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 			},
 			{
-				Name:        "delivery_status",
-				Description: "Updates on campaigns in the process of sending.",
-				Type:        proto.ColumnType_JSON,
-			},
-			{
 				Name:        "recipients",
 				Description: "List settings for the campaign.",
 				Type:        proto.ColumnType_JSON,
@@ -146,6 +147,14 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 				Name:        "tracking",
 				Description: "The tracking options for a campaign.",
 				Type:        proto.ColumnType_JSON,
+			},
+
+			// Steampipe standard columns
+			{
+				Name:        "title",
+				Description: "The title of the campaign.",
+				Transform:   transform.FromField("Settings.Title"),
+				Type:        proto.ColumnType_STRING,
 			},
 		},
 	}
@@ -213,6 +222,11 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 
 	for _, campaign := range campaigns.Campaigns {
 		d.StreamListItem(ctx, &campaign)
+
+		// Context can be cancelled due to manual cancellation or the limit has been hit
+		if d.RowsRemaining(ctx) == 0 {
+			return nil, nil
+		}
 	}
 
 	return nil, nil

@@ -191,6 +191,11 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 
 		for _, list := range lists.Lists {
 			d.StreamListItem(ctx, list)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
 		}
 
 		last = params.Offset + len(lists.Lists)
@@ -200,8 +205,6 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 			params.Offset = last
 		}
 	}
-
-	return nil, nil
 }
 
 //// HYDRATE FUNCTIONS

@@ -107,6 +107,11 @@ func listBatchOperations(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 
 		for _, batchOperation := range batchOperations.BatchOperations {
 			d.StreamListItem(ctx, &batchOperation)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
 		}
 
 		last = params.Offset + len(batchOperations.BatchOperations)

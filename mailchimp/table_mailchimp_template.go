@@ -192,6 +192,11 @@ func listTemplates(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 
 		for _, template := range templates.Templates {
 			d.StreamListItem(ctx, &template)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
 		}
 
 		last = params.Offset + len(templates.Templates)

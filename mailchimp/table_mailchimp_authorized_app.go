@@ -95,6 +95,11 @@ func listAuthorizedApps(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 
 		for _, list := range apps.Apps {
 			d.StreamListItem(ctx, list)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
 		}
 
 		last = params.Offset + len(apps.Apps)

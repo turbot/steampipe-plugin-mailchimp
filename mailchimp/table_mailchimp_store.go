@@ -146,6 +146,11 @@ func listStores(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData)
 
 		for _, store := range stores.Stores {
 			d.StreamListItem(ctx, &store)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
 		}
 
 		last = params.Offset + len(stores.Stores)
