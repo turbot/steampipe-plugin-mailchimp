@@ -15,7 +15,7 @@ select
   emails_sent,
   send_time,
   status,
-  type,
+  type
 from
   mailchimp_campaign;
 ```

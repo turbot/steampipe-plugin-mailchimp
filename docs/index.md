@@ -20,25 +20,24 @@ List devices which block incoming connections in your Mailchimp tailnet:
 
 ```sql
 select
-  name,
-  device.user,
-  created,
-  tailnet_name
+  id,
+  title,
+  content_type,
+  create_time,
+  emails_sent,
+  send_time,
+  status,
+  type
 from
-  mailchimp_device as device
-where
-  blocks_incoming_connections;
+  mailchimp_campaign;
 ```
 
 ```
-+------------------------------------+-----------+---------------------------+--------------+
-| name                               | user      | created                   | tailnet_name |
-+------------------------------------+-----------+---------------------------+--------------+
-| francis-macbook-pro.turbot.com     | francis   | 2022-09-19T10:28:55+08:00 | testdo.com   |
-| oneplus-nord2-5g.testdo.com        | keyma     | 2022-09-19T16:58:56+08:00 | testdo.com   |
-| test-macbook-pro.testdo.com        | test      | 2022-09-19T10:27:55+08:00 | testdo.com   |
-| ip-172-32-10-22.testdo.com         | steampipe | 2022-09-20T12:50:55+08:00 | testdo.com   |
-+------------------------------------+-----------+---------------------------+--------------+
++------------+------------------------------------+--------------+---------------------------+-------------+-----------+--------+------------------+
+| id         | title                              | content_type | create_time               | emails_sent | send_time | status | type             |
++------------+------------------------------------+--------------+---------------------------+-------------+-----------+--------+------------------+
+| f739729f66 | We're here to help you get started | template     | 2023-06-16T17:51:52+05:30 | <null>      | <null>    | save   | automation-email |
++------------+------------------------------------+--------------+---------------------------+-------------+-----------+--------+------------------+
 ```
 
 ## Documentation

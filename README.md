@@ -21,11 +21,16 @@ Run a query:
 
 ```sql
 select
-  name,
-  dnssec ->> 'status',
-  settings ->> 'tls_1_3'
+  id,
+  title,
+  content_type,
+  create_time,
+  emails_sent,
+  send_time,
+  status,
+  type
 from
-  mailchimp_zone
+  mailchimp_campaign;
 ```
 
 ## Developing
