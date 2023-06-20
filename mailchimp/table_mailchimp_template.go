@@ -2,7 +2,6 @@ package mailchimp
 
 import (
 	"context"
-	"strconv"
 	"time"
 
 	"github.com/hanzoai/gochimp3"
@@ -105,15 +104,6 @@ func tableMailchimpTemplate(_ context.Context) *plugin.Table {
 				Name:        "type",
 				Description: "The type of template.",
 				Type:        proto.ColumnType_STRING,
-			},
-
-			// JSON fields
-			{
-				Name:        "template_default_content",
-				Description: "The type of template.",
-				Hydrate:     getTemplateDefaultContent,
-				Transform:   transform.FromValue(),
-				Type:        proto.ColumnType_JSON,
 			},
 
 			// Standard Steampipe columns
@@ -236,26 +226,4 @@ func getTemplate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	}
 
 	return template, nil
-}
-
-func getTemplateDefaultContent(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	logger := plugin.Logger(ctx)
-
-	id := h.Item.(*gochimp3.TemplateResponse).ID
-
-	// Create client
-	client, err := connectMailchimp(ctx, d)
-	if err != nil {
-		logger.Error("mailchimp_campaign.getTemplateDefaultContent", "client_error", err)
-		return nil, err
-	}
-
-	params := gochimp3.BasicQueryParams{}
-	templateContent, err := client.GetTemplateDefaultContent(strconv.Itoa(int(id)), &params)
-	if err != nil {
-		logger.Error("mailchimp_campaign.getTemplateDefaultContent", "query_error", err)
-		return nil, err
-	}
-
-	return templateContent, nil
 }

@@ -48,7 +48,7 @@ func tableMailchimpRoot(_ context.Context) *plugin.Table {
 			{
 				Name:        "role",
 				Description: "The user role for the account.",
-				Type:        proto.ColumnType_BOOL,
+				Type:        proto.ColumnType_STRING,
 			},
 			{
 				Name:        "total_subscribers",
@@ -63,8 +63,9 @@ func tableMailchimpRoot(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 			},
 			{
-				Name:        "industy_stats",
+				Name:        "industry_stats",
 				Description: "The average campaign statistics for all campaigns in the account's specified industry.",
+				Transform:   transform.FromField("IndustyStats"),
 				Type:        proto.ColumnType_JSON,
 			},
 
@@ -73,7 +74,7 @@ func tableMailchimpRoot(_ context.Context) *plugin.Table {
 				Name:        "title",
 				Description: "The title of the resource.",
 				Type:        proto.ColumnType_STRING,
-				Transform:   transform.FromField("Name"),
+				Transform:   transform.FromField("AccountName"),
 			},
 		},
 	}

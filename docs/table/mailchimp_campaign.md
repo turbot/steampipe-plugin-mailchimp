@@ -116,7 +116,7 @@ select
   f.id as folder_id,
   f.name as folder_name,
   c.id as campaign_id,
-  title as campaign_title
+  c.title as campaign_title
 from
   mailchimp_campaign c
   left join mailchimp_campaign_folder f

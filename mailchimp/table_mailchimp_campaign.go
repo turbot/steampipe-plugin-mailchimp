@@ -172,7 +172,21 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 		return nil, err
 	}
 
-	params := gochimp3.CampaignQueryParams{}
+	// Limiting the results
+	maxLimit := int32(1000)
+	if d.QueryContext.Limit != nil {
+		limit := int32(*d.QueryContext.Limit)
+		if limit < maxLimit {
+			maxLimit = limit
+		}
+	}
+
+	params := gochimp3.CampaignQueryParams{
+		ExtendedQueryParams: gochimp3.ExtendedQueryParams{
+			Count:  int(maxLimit),
+			Offset: 0,
+		},
+	}
 	if d.EqualsQuals["status"] != nil {
 		params.Status = d.EqualsQualString("status")
 	}
@@ -214,22 +228,31 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 		}
 	}
 
-	campaigns, err := client.GetCampaigns(&params)
-	if err != nil {
-		logger.Error("mailchimp_campaign.listCampaigns", "query_error", err)
-		return nil, err
-	}
+	last := 0
 
-	for _, campaign := range campaigns.Campaigns {
-		d.StreamListItem(ctx, &campaign)
+	for {
+		campaigns, err := client.GetCampaigns(&params)
+		if err != nil {
+			logger.Error("mailchimp_campaign.listCampaigns", "query_error", err)
+			return nil, err
+		}
 
-		// Context can be cancelled due to manual cancellation or the limit has been hit
-		if d.RowsRemaining(ctx) == 0 {
+		for _, campaign := range campaigns.Campaigns {
+			d.StreamListItem(ctx, &campaign)
+
+			// Context can be cancelled due to manual cancellation or the limit has been hit
+			if d.RowsRemaining(ctx) == 0 {
+				return nil, nil
+			}
+		}
+
+		last = params.Offset + len(campaigns.Campaigns)
+		if last >= campaigns.TotalItems {
 			return nil, nil
+		} else {
+			params.Offset = last
 		}
 	}
-
-	return nil, nil
 }
 
 //// HYDRATE FUNCTIONS
