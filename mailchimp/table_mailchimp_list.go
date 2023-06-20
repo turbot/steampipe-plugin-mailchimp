@@ -164,8 +164,8 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	}
 	if d.Quals["date_created"] != nil {
 		for _, q := range d.Quals["date_created"].Quals {
-			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
-			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.DateTime)
+			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.RFC3339)
+			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.RFC3339)
 			switch q.Operator {
 			case ">=", ">":
 				params.SinceDateCreated = timestamp

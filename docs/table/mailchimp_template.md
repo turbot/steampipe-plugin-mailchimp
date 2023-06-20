@@ -78,3 +78,15 @@ from
   left join mailchimp_template_folder f
     on t.folder_id = f.id;
 ```
+
+### Get template count by category
+
+```sql
+select
+  category,
+  count(*) as count
+from
+  mailchimp_template
+group by
+  category;
+```

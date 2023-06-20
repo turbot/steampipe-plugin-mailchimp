@@ -195,8 +195,8 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	}
 	if d.Quals["create_time"] != nil {
 		for _, q := range d.Quals["create_time"].Quals {
-			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
-			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.DateTime)
+			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.RFC3339)
+			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.RFC3339)
 			switch q.Operator {
 			case ">=", ">":
 				params.SinceCreateTime = timestamp
@@ -212,8 +212,8 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	}
 	if d.Quals["send_time"] != nil {
 		for _, q := range d.Quals["send_time"].Quals {
-			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.DateTime)
-			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.DateTime)
+			timestamp := q.Value.GetTimestampValue().AsTime().Format(time.RFC3339)
+			timestampAdd := q.Value.GetTimestampValue().AsTime().Add(time.Second).Format(time.RFC3339)
 			switch q.Operator {
 			case ">=", ">":
 				params.SinceSendTime = timestamp
