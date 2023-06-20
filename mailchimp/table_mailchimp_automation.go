@@ -84,6 +84,14 @@ func tableMailchimpAutomation(_ context.Context) *plugin.Table {
 				Description: "Available triggers for Automation workflows.",
 				Type:        proto.ColumnType_JSON,
 			},
+
+			// Steampipe standard columns
+			{
+				Name:        "title",
+				Description: "The title of the automation.",
+				Type:        proto.ColumnType_STRING,
+				Transform:   transform.FromField("Settings.Title"),
+			},
 		},
 	}
 }

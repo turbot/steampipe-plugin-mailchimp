@@ -75,6 +75,7 @@ func tableMailchimpAutomationEmail(_ context.Context) *plugin.Table {
 			{
 				Name:        "workflow_id",
 				Description: "A string that uniquely identifies an automation workflow.",
+				Transform:   transform.FromField("WorkflowID"),
 				Type:        proto.ColumnType_STRING,
 			},
 
@@ -114,6 +115,14 @@ func tableMailchimpAutomationEmail(_ context.Context) *plugin.Table {
 				Description: "Available triggers for AutomationEmail workflows.",
 				Type:        proto.ColumnType_JSON,
 			},
+
+			// Steampipe standard columns
+			{
+				Name:        "title",
+				Description: "The title of the automation email.",
+				Transform:   transform.FromField("Settings.Title"),
+				Type:        proto.ColumnType_STRING,
+			},
 		},
 	}
 }
@@ -123,7 +132,7 @@ func tableMailchimpAutomationEmail(_ context.Context) *plugin.Table {
 func listAutomationEmails(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 
-	id := h.ParentItem.(*gochimp3.Automation).ID
+	id := h.Item.(*gochimp3.Automation).ID
 
 	if d.EqualsQuals["workflow_id"] != nil && d.EqualsQualString("workflow_id") != id {
 		return nil, nil

@@ -7,3 +7,17 @@ The `mailchimp_automation_queue` table can be used to query information about an
 ## Examples
 
 ### Basic info
+
+```sql
+select
+  id,
+  email_id,
+  email_address,
+  list_id,
+  next_send,
+  workflow_id
+from
+  mailchimp_automation_queue
+where
+  email_id = '123abc';
+```

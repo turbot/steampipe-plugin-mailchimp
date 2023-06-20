@@ -76,7 +76,7 @@ func tableMailchimpAutomationQueue(_ context.Context) *plugin.Table {
 func listAutomationQueues(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 
-	workflowId := h.ParentItem.(*gochimp3.Automation).ID
+	workflowId := h.Item.(*gochimp3.Automation).ID
 	var workflowEmailId string
 
 	if d.EqualsQuals["workflow_id"] != nil && d.EqualsQualString("workflow_id") != workflowId {
