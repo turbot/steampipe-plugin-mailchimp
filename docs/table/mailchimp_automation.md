@@ -23,10 +23,10 @@ from
 ```sql
 select
   id,
-  recipient ->> 'list_id' as recipient_list_id,
-  recipient -> 'segment_options' ->> 'conditions' as recipient_segment_conditions,
-  recipient -> 'segment_options' ->> 'match' as recipient_segment_match,
-  recipient -> 'segment_options' ->> 'saved_segment_id' as saved_segment_id
+  recipients ->> 'list_id' as recipient_list_id,
+  recipients -> 'segment_options' ->> 'conditions' as recipient_segment_conditions,
+  recipients -> 'segment_options' ->> 'match' as recipient_segment_match,
+  recipients -> 'segment_options' ->> 'saved_segment_id' as saved_segment_id
 from
   mailchimp_automation;
 ```

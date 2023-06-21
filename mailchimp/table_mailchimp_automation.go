@@ -85,7 +85,7 @@ func tableMailchimpAutomation(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 			},
 
-			// Steampipe standard columns
+			// Standard Steampipe columns
 			{
 				Name:        "title",
 				Description: "The title of the automation.",
@@ -104,7 +104,7 @@ func listAutomations(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation.listAutomations", "client_error", err)
+		logger.Error("mailchimp_automation.listAutomations", "connection_error", err)
 		return nil, err
 	}
 
@@ -115,7 +115,7 @@ func listAutomations(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrate
 
 	automations, err := client.GetAutomations(&params)
 	if err != nil {
-		logger.Error("mailchimp_automation.listAutomations", "query_error", err)
+		logger.Error("mailchimp_automation.listAutomations", "api_error", err)
 		return nil, err
 	}
 
@@ -141,13 +141,13 @@ func getAutomation(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation.getAutomation", "client_error", err)
+		logger.Error("mailchimp_automation.getAutomation", "connection_error", err)
 		return nil, err
 	}
 
 	automation, err := client.GetAutomation(id)
 	if err != nil {
-		logger.Error("mailchimp_automation.getAutomation", "query_error", err)
+		logger.Error("mailchimp_automation.getAutomation", "api_error", err)
 		return nil, err
 	}
 
@@ -162,13 +162,13 @@ func getAutomationRemovedSubscribers(ctx context.Context, d *plugin.QueryData, h
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation.getAutomationRemovedSubscribers", "client_error", err)
+		logger.Error("mailchimp_automation.getAutomationRemovedSubscribers", "connection_error", err)
 		return nil, err
 	}
 
 	automationEmails, err := client.GetAutomationRemovedSubscribers(id)
 	if err != nil {
-		logger.Error("mailchimp_automation.getAutomationRemovedSubscribers", "query_error", err)
+		logger.Error("mailchimp_automation.getAutomationRemovedSubscribers", "api_error", err)
 		return nil, err
 	}
 

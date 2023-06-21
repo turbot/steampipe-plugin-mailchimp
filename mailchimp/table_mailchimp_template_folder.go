@@ -55,7 +55,7 @@ func listTemplateFolders(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_template_folder.listTemplateFolders", "client_error", err)
+		logger.Error("mailchimp_template_folder.listTemplateFolders", "connection_error", err)
 		return nil, err
 	}
 
@@ -80,7 +80,7 @@ func listTemplateFolders(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	for {
 		folders, err := client.GetTemplateFolders(&params)
 		if err != nil {
-			logger.Error("mailchimp_template_folder.listTemplateFolders", "query_error", err)
+			logger.Error("mailchimp_template_folder.listTemplateFolders", "api_error", err)
 			return nil, err
 		}
 

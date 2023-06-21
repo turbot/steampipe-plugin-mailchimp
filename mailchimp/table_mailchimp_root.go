@@ -43,7 +43,7 @@ func tableMailchimpRoot(_ context.Context) *plugin.Table {
 			{
 				Name:        "pro_enabled",
 				Description: "Whether the account includes Mailchimp Pro.",
-				Type:        proto.ColumnType_STRING,
+				Type:        proto.ColumnType_BOOL,
 			},
 			{
 				Name:        "role",
@@ -88,13 +88,13 @@ func listRoots(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) 
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_root.listRoots", "client_error", err)
+		logger.Error("mailchimp_root.listRoots", "connection_error", err)
 		return nil, err
 	}
 
 	root, err := client.GetRoot(&gochimp3.BasicQueryParams{})
 	if err != nil {
-		logger.Error("mailchimp_root.listRoots", "query_error", err)
+		logger.Error("mailchimp_root.listRoots", "api_error", err)
 		return nil, err
 	}
 

@@ -25,6 +25,5 @@ select
   t.title as template_title
 from
   mailchimp_template t
-  left join mailchimp_template_folder f
-    on t.folder_id = f.id;
+  left join mailchimp_template_folder f on t.folder_id = f.id;
 ```

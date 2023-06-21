@@ -91,13 +91,13 @@ func listAutomationQueues(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation_queue.listAutomationQueues", "client_error", err)
+		logger.Error("mailchimp_automation_queue.listAutomationQueues", "connection_error", err)
 		return nil, err
 	}
 
 	automationQueues, err := client.GetAutomationQueues(workflowId, workflowEmailId)
 	if err != nil {
-		logger.Error("mailchimp_automation_queue.listAutomationQueues", "query_error", err)
+		logger.Error("mailchimp_automation_queue.listAutomationQueues", "api_error", err)
 		return nil, err
 	}
 
@@ -125,13 +125,13 @@ func getAutomationQueue(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation_queue.getAutomationQueue", "client_error", err)
+		logger.Error("mailchimp_automation_queue.getAutomationQueue", "connection_error", err)
 		return nil, err
 	}
 
 	automationQueue, err := client.GetAutomationQueue(workflowId, workflowEmailId, id)
 	if err != nil {
-		logger.Error("mailchimp_automation_queue.getAutomationQueue", "query_error", err)
+		logger.Error("mailchimp_automation_queue.getAutomationQueue", "api_error", err)
 		return nil, err
 	}
 

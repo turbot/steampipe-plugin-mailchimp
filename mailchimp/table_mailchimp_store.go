@@ -117,7 +117,7 @@ func listStores(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData)
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_store.listStores", "client_error", err)
+		logger.Error("mailchimp_store.listStores", "connection_error", err)
 		return nil, err
 	}
 
@@ -140,7 +140,7 @@ func listStores(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData)
 	for {
 		stores, err := client.GetStores(&params)
 		if err != nil {
-			logger.Error("mailchimp_store.listStores", "query_error", err)
+			logger.Error("mailchimp_store.listStores", "api_error", err)
 			return nil, err
 		}
 
@@ -177,7 +177,7 @@ func getStore(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_store.getStore", "client_error", err)
+		logger.Error("mailchimp_store.getStore", "connection_error", err)
 		return nil, err
 	}
 
@@ -185,7 +185,7 @@ func getStore(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (
 
 	store, err := client.GetStore(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_store.getStore", "query_error", err)
+		logger.Error("mailchimp_store.getStore", "api_error", err)
 		return nil, err
 	}
 

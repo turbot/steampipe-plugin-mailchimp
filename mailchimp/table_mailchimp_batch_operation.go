@@ -76,7 +76,7 @@ func listBatchOperations(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_batch_operation.listBatchOperations", "client_error", err)
+		logger.Error("mailchimp_batch_operation.listBatchOperations", "connection_error", err)
 		return nil, err
 	}
 
@@ -101,7 +101,7 @@ func listBatchOperations(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	for {
 		batchOperations, err := client.GetBatchOperations(&params)
 		if err != nil {
-			logger.Error("mailchimp_batch_operation.listBatchOperations", "query_error", err)
+			logger.Error("mailchimp_batch_operation.listBatchOperations", "api_error", err)
 			return nil, err
 		}
 
@@ -138,7 +138,7 @@ func getBatchOperation(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_batch_operation.getBatchOperation", "client_error", err)
+		logger.Error("mailchimp_batch_operation.getBatchOperation", "connection_error", err)
 		return nil, err
 	}
 
@@ -146,7 +146,7 @@ func getBatchOperation(ctx context.Context, d *plugin.QueryData, h *plugin.Hydra
 
 	batchOperation, err := client.GetBatchOperation(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_batch_operation.getBatchOperation", "query_error", err)
+		logger.Error("mailchimp_batch_operation.getBatchOperation", "api_error", err)
 		return nil, err
 	}
 

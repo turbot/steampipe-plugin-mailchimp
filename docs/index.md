@@ -44,7 +44,7 @@ from
 
 - **[Table definitions & examples →](/plugins/turbot/mailchimp/tables)**
 
-## Get started
+## Quick start
 
 ### Install
 
@@ -62,17 +62,18 @@ Installing the latest mailchimp plugin will create a config file (`~/.steampipe/
 connection "mailchimp" {
   plugin = "mailchimp"
 
-  # Required: Set your Mailchimp API Key
+  # Mailchimp API key for requests. Required.
   # Generate your API Key as per: https://mailchimp.com/developer/marketing/guides/quick-start/#generate-your-api-key/
-  # This can also be set via the `MAILCHIMP_API_KEY` environment variable
-  mailchimp_api_key = "08355689e3e6f9fd0f5630362b16b1b5-us21"
+  # This can also be set via the `MAILCHIMP_API_KEY` environment variable.
+  # mailchimp_api_key = "08355689e3e6f9fd0f5630362b16b1b5-us21"
 }
 ```
 
-- `mailchimp_api_key` - API Key of the Mailchimp account.
+Alternatively, you can also use the standard Mailchimp environment variables to obtain credentials **only if other arguments (`mailchimp_api_key`) is not specified** in the connection:
 
-Environment variables are also available as an alternate configuration method:
-* `MAILCHIMP_API_KEY`
+```sh
+export MAILCHIMP_API_KEY=q8355689e3e6f9fd0f5630362b16b1b5-us21
+```
 
 ## Get involved
 

@@ -143,7 +143,7 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_list.listLists", "client_error", err)
+		logger.Error("mailchimp_list.listLists", "connection_error", err)
 		return nil, err
 	}
 
@@ -185,7 +185,7 @@ func listLists(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) 
 	for {
 		lists, err := client.GetLists(&params)
 		if err != nil {
-			logger.Error("mailchimp_list.listLists", "query_error", err)
+			logger.Error("mailchimp_list.listLists", "api_error", err)
 			return nil, err
 		}
 
@@ -222,7 +222,7 @@ func getList(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_list.getList", "client_error", err)
+		logger.Error("mailchimp_list.getList", "connection_error", err)
 		return nil, err
 	}
 
@@ -230,7 +230,7 @@ func getList(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (i
 
 	list, err := client.GetList(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_list.getList", "query_error", err)
+		logger.Error("mailchimp_list.getList", "api_error", err)
 		return nil, err
 	}
 

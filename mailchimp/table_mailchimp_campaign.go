@@ -149,7 +149,7 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 			},
 
-			// Steampipe standard columns
+			// Standard Steampipe columns
 			{
 				Name:        "title",
 				Description: "The title of the campaign.",
@@ -168,7 +168,7 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_campaign.listCampaigns", "client_error", err)
+		logger.Error("mailchimp_campaign.listCampaigns", "connection_error", err)
 		return nil, err
 	}
 
@@ -233,7 +233,7 @@ func listCampaigns(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	for {
 		campaigns, err := client.GetCampaigns(&params)
 		if err != nil {
-			logger.Error("mailchimp_campaign.listCampaigns", "query_error", err)
+			logger.Error("mailchimp_campaign.listCampaigns", "api_error", err)
 			return nil, err
 		}
 
@@ -270,7 +270,7 @@ func getCampaign(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_campaign.getCampaign", "client_error", err)
+		logger.Error("mailchimp_campaign.getCampaign", "connection_error", err)
 		return nil, err
 	}
 
@@ -281,7 +281,7 @@ func getCampaign(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 
 	campaign, err := client.GetCampaign(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_campaign.getCampaign", "query_error", err)
+		logger.Error("mailchimp_campaign.getCampaign", "api_error", err)
 		return nil, err
 	}
 
@@ -296,14 +296,14 @@ func getCampaignContent(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_campaign.getCampaignContent", "client_error", err)
+		logger.Error("mailchimp_campaign.getCampaignContent", "connection_error", err)
 		return nil, err
 	}
 
 	params := gochimp3.BasicQueryParams{}
 	campaignContent, err := client.GetCampaignContent(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_campaign.getCampaignContent", "query_error", err)
+		logger.Error("mailchimp_campaign.getCampaignContent", "api_error", err)
 		return nil, err
 	}
 

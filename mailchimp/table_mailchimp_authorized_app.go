@@ -26,7 +26,7 @@ func tableMailchimpAuthorizedApp(_ context.Context) *plugin.Table {
 			{
 				Name:        "id",
 				Description: "The ID for the application.",
-				Type:        proto.ColumnType_STRING,
+				Type:        proto.ColumnType_INT,
 				Transform:   transform.FromField("ID"),
 			},
 			{
@@ -66,7 +66,7 @@ func listAuthorizedApps(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_authorized_app.listAuthorizedApps", "client_error", err)
+		logger.Error("mailchimp_authorized_app.listAuthorizedApps", "connection_error", err)
 		return nil, err
 	}
 
@@ -89,7 +89,7 @@ func listAuthorizedApps(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 	for {
 		apps, err := client.GetAuthorizedApps(&params)
 		if err != nil {
-			logger.Error("mailchimp_authorized_app.listAuthorizedApps", "query_error", err)
+			logger.Error("mailchimp_authorized_app.listAuthorizedApps", "api_error", err)
 			return nil, err
 		}
 
@@ -127,7 +127,7 @@ func getAuthorizedApp(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_authorized_app.getAuthorizedApp", "client_error", err)
+		logger.Error("mailchimp_authorized_app.getAuthorizedApp", "connection_error", err)
 		return nil, err
 	}
 
@@ -138,7 +138,7 @@ func getAuthorizedApp(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 
 	list, err := client.GetAuthroizedApp(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_authorized_app.getAuthorizedApp", "query_error", err)
+		logger.Error("mailchimp_authorized_app.getAuthorizedApp", "api_error", err)
 		return nil, err
 	}
 

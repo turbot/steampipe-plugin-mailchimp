@@ -25,6 +25,5 @@ select
   c.title as campaign_title
 from
   mailchimp_campaign c
-  left join mailchimp_campaign_folder f
-    on c.settings ->> 'folder_id' = f.id;
+  left join mailchimp_campaign_folder f on c.settings ->> 'folder_id' = f.id;
 ```

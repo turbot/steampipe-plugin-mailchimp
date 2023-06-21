@@ -58,7 +58,7 @@ func tableMailchimpTemplate(_ context.Context) *plugin.Table {
 			{
 				Name:        "active",
 				Description: "Returns whether the template is still active.",
-				Type:        proto.ColumnType_STRING,
+				Type:        proto.ColumnType_BOOL,
 			},
 			{
 				Name:        "category",
@@ -125,7 +125,7 @@ func listTemplates(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_template.listTemplates", "client_error", err)
+		logger.Error("mailchimp_template.listTemplates", "connection_error", err)
 		return nil, err
 	}
 
@@ -176,7 +176,7 @@ func listTemplates(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateDa
 	for {
 		templates, err := client.GetTemplates(&params)
 		if err != nil {
-			logger.Error("mailchimp_template.listTemplates", "query_error", err)
+			logger.Error("mailchimp_template.listTemplates", "api_error", err)
 			return nil, err
 		}
 
@@ -213,7 +213,7 @@ func getTemplate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_template.getTemplate", "client_error", err)
+		logger.Error("mailchimp_template.getTemplate", "connection_error", err)
 		return nil, err
 	}
 
@@ -221,7 +221,7 @@ func getTemplate(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData
 
 	template, err := client.GetTemplate(id, &params)
 	if err != nil {
-		logger.Error("mailchimp_template.getTemplate", "query_error", err)
+		logger.Error("mailchimp_template.getTemplate", "api_error", err)
 		return nil, err
 	}
 

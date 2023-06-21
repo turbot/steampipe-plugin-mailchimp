@@ -55,7 +55,7 @@ func listCampaignFolders(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_campaign_folder.listCampaignFolders", "client_error", err)
+		logger.Error("mailchimp_campaign_folder.listCampaignFolders", "connection_error", err)
 		return nil, err
 	}
 
@@ -80,7 +80,7 @@ func listCampaignFolders(ctx context.Context, d *plugin.QueryData, h *plugin.Hyd
 	for {
 		folders, err := client.GetCampaignFolders(&params)
 		if err != nil {
-			logger.Error("mailchimp_campaign_folder.listCampaignFolders", "query_error", err)
+			logger.Error("mailchimp_campaign_folder.listCampaignFolders", "api_error", err)
 			return nil, err
 		}
 

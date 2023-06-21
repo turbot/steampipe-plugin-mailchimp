@@ -116,7 +116,7 @@ func tableMailchimpAutomationEmail(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_JSON,
 			},
 
-			// Steampipe standard columns
+			// Standard Steampipe columns
 			{
 				Name:        "title",
 				Description: "The title of the automation email.",
@@ -141,13 +141,13 @@ func listAutomationEmails(ctx context.Context, d *plugin.QueryData, h *plugin.Hy
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation_email.listAutomationEmails", "client_error", err)
+		logger.Error("mailchimp_automation_email.listAutomationEmails", "connection_error", err)
 		return nil, err
 	}
 
 	automationEmails, err := client.GetAutomationEmails(id)
 	if err != nil {
-		logger.Error("mailchimp_automation_email.listAutomationEmails", "query_error", err)
+		logger.Error("mailchimp_automation_email.listAutomationEmails", "api_error", err)
 		return nil, err
 	}
 
@@ -174,13 +174,13 @@ func getAutomationEmail(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 	// Create client
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_automation_email.getAutomationEmail", "client_error", err)
+		logger.Error("mailchimp_automation_email.getAutomationEmail", "connection_error", err)
 		return nil, err
 	}
 
 	automationEmail, err := client.GetAutomationEmail(workflowId, id)
 	if err != nil {
-		logger.Error("mailchimp_automation_email.getAutomationEmail", "query_error", err)
+		logger.Error("mailchimp_automation_email.getAutomationEmail", "api_error", err)
 		return nil, err
 	}
 
