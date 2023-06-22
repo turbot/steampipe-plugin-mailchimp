@@ -2,8 +2,8 @@
 organization: Turbot
 category: ["saas"]
 icon_url: "/images/plugins/turbot/mailchimp.svg"
-brand_color: "#000000"
-display_name: "mailchimp"
+brand_color: "#241C15"
+display_name: "Mailchimp"
 short_name: "mailchimp"
 description: "Steampipe plugin to query audiences, automation workflows, campaigns, and more from Mailchimp."
 og_description: "Query Mailchimp with SQL! Open source CLI. No DB required."
