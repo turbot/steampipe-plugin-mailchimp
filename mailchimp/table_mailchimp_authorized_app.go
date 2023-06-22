@@ -2,6 +2,7 @@ package mailchimp
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/hanzoai/gochimp3"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
@@ -117,10 +118,10 @@ func listAuthorizedApps(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 func getAuthorizedApp(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 
-	id := d.EqualsQualString("id")
+	id := d.EqualsQuals["id"].GetInt64Value()
 
 	// List id should not be empty
-	if id == "" {
+	if id == 0 {
 		return nil, nil
 	}
 
@@ -136,7 +137,7 @@ func getAuthorizedApp(ctx context.Context, d *plugin.QueryData, h *plugin.Hydrat
 		params.Status = d.EqualsQualString("status")
 	}
 
-	list, err := client.GetAuthroizedApp(id, &params)
+	list, err := client.GetAuthroizedApp(strconv.Itoa(int(id)), &params)
 	if err != nil {
 		logger.Error("mailchimp_authorized_app.getAuthorizedApp", "api_error", err)
 		return nil, err
