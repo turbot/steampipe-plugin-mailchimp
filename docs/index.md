@@ -54,6 +54,15 @@ Download and install the latest Mailchimp plugin:
 steampipe plugin install mailchimp
 ```
 
+### Credentials
+
+| Item        | Description                                                                                                                                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Credentials | Mailchimp requires an [API key](https://mailchimp.com/developer/marketing/guides/quick-start/#generate-your-api-key/) for all requests.                                                               |
+| Permissions | API keys have the same permissions as the user who creates them, and if the user permissions change, the API key permissions also change.                                                             |
+| Radius      | Each connection represents a single Mailchimp Installation.                                                                                                                                           |
+| Resolution  | 1. Credentials explicitly set in a steampipe config file (`~/.steampipe/config/mailchimp.spc`)<br />2. Credentials specified in environment variables, e.g., `MAILCHIMP_API_KEY`.                     |
+
 ### Configuration
 
 Installing the latest mailchimp plugin will create a config file (`~/.steampipe/config/mailchimp.spc`) with a single connection named `mailchimp`:
