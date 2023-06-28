@@ -11,13 +11,40 @@ Use SQL to query audiences, automation workflows, campaigns, and more from Mailc
 
 ## Quick start
 
-Install the plugin with [Steampipe](https://steampipe.io):
+### Install
 
-```shell
+Download and install the latest Mailchimp plugin:
+
+```bash
 steampipe plugin install mailchimp
 ```
 
-Run a query:
+Configure your [credentials](https://hub.steampipe.io/plugins/turbot/mailchimp#credentials) and [config file](https://hub.steampipe.io/plugins/turbot/mailchimp#configuration).
+
+Configure your account details in `~/.steampipe/config/mailchimp.spc`:
+
+```hcl
+connection "mailchimp" {
+  plugin = "mailchimp"
+
+  # Authentication information
+  mailchimp_api_key = "08355689e3e6f9fd0f5630362b16b1b5-us21"
+}
+```
+
+Or through environment variables:
+
+```sh
+export MAILCHIMP_API_KEY=08355689e3e6f9fd0f5630362b16b1b5-us21
+```
+
+Run steampipe:
+
+```shell
+steampipe query
+```
+
+List details of your Mailchimp campaign:
 
 ```sql
 select
@@ -31,6 +58,14 @@ select
   type
 from
   mailchimp_campaign;
+```
+
+```
++------------+------------------------------------+--------------+---------------------------+-------------+-----------+--------+------------------+
+| id         | title                              | content_type | create_time               | emails_sent | send_time | status | type             |
++------------+------------------------------------+--------------+---------------------------+-------------+-----------+--------+------------------+
+| f739729f66 | We're here to help you get started | template     | 2023-06-16T17:51:52+05:30 | <null>      | <null>    | save   | automation-email |
++------------+------------------------------------+--------------+---------------------------+-------------+-----------+--------+------------------+
 ```
 
 ## Developing

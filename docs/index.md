@@ -16,7 +16,7 @@ og_image: "/images/plugins/turbot/mailchimp-social-graphic.png"
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
-List devices which block incoming connections in your Mailchimp tailnet:
+List details of your Mailchimp campaign:
 
 ```sql
 select
@@ -78,7 +78,7 @@ connection "mailchimp" {
 }
 ```
 
-Alternatively, you can also use the standard Mailchimp environment variables to obtain credentials **only if other arguments (`mailchimp_api_key`) is not specified** in the connection:
+Alternatively, you can also use the standard Mailchimp environment variables to obtain credentials **only if other argument (`mailchimp_api_key`) is not specified** in the connection:
 
 ```sh
 export MAILCHIMP_API_KEY=q8355689e3e6f9fd0f5630362b16b1b5-us21

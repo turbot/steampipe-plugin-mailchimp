@@ -33,7 +33,7 @@ func tableMailchimpAutomationEmail(_ context.Context) *plugin.Table {
 			},
 			{
 				Name:        "archive_url",
-				Description: "The link to the campaign's archive version in ISO 8601 format.",
+				Description: "The link to the campaign's archive version.",
 				Transform:   transform.FromField("ArchiveURL"),
 				Type:        proto.ColumnType_STRING,
 			},
