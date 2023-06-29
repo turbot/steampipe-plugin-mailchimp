@@ -15,7 +15,7 @@ import (
 func tableMailchimpTemplate(_ context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "mailchimp_template",
-		Description: "Get a list of an account's registered, connected applications.",
+		Description: "Get a list of an account's templates.",
 		List: &plugin.ListConfig{
 			KeyColumns: []*plugin.KeyColumn{
 				{

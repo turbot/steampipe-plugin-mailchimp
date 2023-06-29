@@ -48,3 +48,35 @@ select
 from
   mailchimp_root;
 ```
+
+### Get the details of the users who havent't logged in in the last 30 days
+
+```sql
+select
+  account_id,
+  account_name,
+  email,
+  last_login,
+  role,
+  total_subscribers
+from
+  mailchimp_root
+where
+  last_login <= now() - interval '30' day;
+```
+
+### Get the details of the users who use Mailchimp Pro version
+
+```sql
+select
+  account_id,
+  account_name,
+  email,
+  last_login,
+  role,
+  total_subscribers
+from
+  mailchimp_root
+where
+  pro_enabled;
+```

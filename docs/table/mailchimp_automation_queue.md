@@ -21,3 +21,20 @@ from
 where
   email_id = '123abc';
 ```
+
+### Check if an email is automated to be sent in the next 3 days
+
+```sql
+select
+  id,
+  email_id,
+  email_address,
+  list_id,
+  next_send,
+  workflow_id
+from
+  mailchimp_automation_queue
+where
+  email_id = '123abc'
+  and next_send <= now() - interval '3' day;
+```

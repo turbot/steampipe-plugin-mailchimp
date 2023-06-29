@@ -15,7 +15,7 @@ import (
 func tableMailchimpList(_ context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "mailchimp_list",
-		Description: "Get information about all lists in the account.",
+		Description: "Get information about all contact lists in the account.",
 		List: &plugin.ListConfig{
 			Hydrate: listLists,
 			KeyColumns: []*plugin.KeyColumn{

@@ -14,7 +14,7 @@ import (
 func tableMailchimpCampaignFolder(_ context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "mailchimp_campaign_folder",
-		Description: "Get a list of an account's registered, connected applications.",
+		Description: "Get a list of an account's campaign folders.",
 		List: &plugin.ListConfig{
 			Hydrate: listCampaignFolders,
 		},

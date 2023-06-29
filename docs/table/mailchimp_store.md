@@ -20,7 +20,7 @@ from
   mailchimp_store;
 ```
 
-### Get contact info for each store
+### Get contact info of each store
 
 ```sql
 select
@@ -49,4 +49,40 @@ from
   mailchimp_list l
 where
   s.list_id = l.id;
+```
+
+### List stores created in the last 30 days
+
+```sql
+select
+  id,
+  name,
+  created_at,
+  currency_code,
+  domain,
+  money_format,
+  platform,
+  primary_locale
+from
+  mailchimp_store
+where
+  created_at >= now() - interval '30' day;
+```
+
+### List stores which haven't been updated in the last 10 days
+
+```sql
+select
+  id,
+  name,
+  created_at,
+  currency_code,
+  domain,
+  money_format,
+  platform,
+  primary_locale
+from
+  mailchimp_store
+where
+  updated_at <= now() - interval '10' day;
 ```

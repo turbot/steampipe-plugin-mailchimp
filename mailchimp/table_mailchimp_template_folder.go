@@ -14,7 +14,7 @@ import (
 func tableMailchimpTemplateFolder(_ context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "mailchimp_template_folder",
-		Description: "Get a list of an account's registered, connected applications.",
+		Description: "Get a list of an account's template folders.",
 		List: &plugin.ListConfig{
 			Hydrate: listTemplateFolders,
 		},

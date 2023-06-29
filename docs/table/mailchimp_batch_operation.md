@@ -42,3 +42,18 @@ select
 from
   mailchimp_batch_operation;
 ```
+
+### List batch operations completed in the last 10 days
+
+```sql
+select
+  id,
+  submitted_at,
+  completed_at,
+  status,
+  total_operations
+from
+  mailchimp_batch_operation
+where
+  completed_at >= now() - interval '10' day;
+```

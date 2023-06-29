@@ -16,7 +16,7 @@ from
   mailchimp_list;
 ```
 
-### Get the campaign defaults for each audience
+### Get the campaign defaults of each audience
 
 ```sql
 select
@@ -29,7 +29,7 @@ from
   mailchimp_list;
 ```
 
-### Get the contact information for each audience
+### Get the contact information of each audience
 
 ```sql
 select
@@ -46,7 +46,7 @@ from
   mailchimp_list;
 ```
 
-### Get the stats for each audience
+### Get the stats of each audience
 
 ```sql
 select
