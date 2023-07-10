@@ -18,17 +18,17 @@ func connectMailchimp(ctx context.Context, d *plugin.QueryData) (*gochimp3.API, 
 	}
 
 	// Default to using env vars (#2)
-	apiKey := os.Getenv("MAILCHIMP_API_KEY")
+	apiKey := os.Getenv("API_KEY")
 
 	// But prefer the config (#1)
 	mailchimpConfig := GetConfig(d.Connection)
-	if mailchimpConfig.MailchimpAPIKey != nil {
-		apiKey = *mailchimpConfig.MailchimpAPIKey
+	if mailchimpConfig.APIKey != nil {
+		apiKey = *mailchimpConfig.APIKey
 	}
 
 	if apiKey == "" {
 		// Credentials not set
-		return nil, errors.New("mailchimp_api_key must be configured")
+		return nil, errors.New("api_key must be configured")
 	}
 
 	client := gochimp3.New(apiKey)
