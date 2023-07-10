@@ -35,7 +35,7 @@ connection "mailchimp" {
 Or through environment variables:
 
 ```sh
-export API_KEY=08355689e3e6f9fd0f5630362b16b1b5-us21
+export MAILCHIMP_API_KEY=08355689e3e6f9fd0f5630362b16b1b5-us21
 ```
 
 Run steampipe:
