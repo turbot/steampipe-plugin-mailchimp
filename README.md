@@ -28,7 +28,7 @@ connection "mailchimp" {
   plugin = "mailchimp"
 
   # Authentication information
-  mailchimp_api_key = "08355689e3e6f9fd0f5630362b16b1b5-us21"
+  api_key = "08355689e3e6f9fd0f5630362b16b1b5-us21"
 }
 ```
 

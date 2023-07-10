@@ -6,11 +6,11 @@ import (
 )
 
 type mailchimpConfig struct {
-	MailchimpAPIKey *string `cty:"mailchimp_api_key"`
+	APIKey *string `cty:"api_key"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
-	"mailchimp_api_key": {
+	"api_key": {
 		Type: schema.TypeString,
 	},
 }
