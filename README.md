@@ -6,7 +6,7 @@ Use SQL to query audiences, automation workflows, campaigns, and more from Mailc
 
 - **[Get started →](https://hub.steampipe.io/plugins/turbot/mailchimp)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/mailchimp/tables)
-- Community: [Slack Channel](https://steampipe.io/community/join)
+- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
 - Get involved: [Issues](https://github.com/turbot/steampipe-plugin-mailchimp/issues)
 
 ## Quick start
