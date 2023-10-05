@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/hanzoai/gochimp3 v0.0.0-20210305004051-da66ea724147
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.1
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.6.2
 )
 
 require (
