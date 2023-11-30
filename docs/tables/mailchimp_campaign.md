@@ -1,10 +1,20 @@
-# Table: mailchimp_campaign
+---
+title: "Steampipe Table: mailchimp_campaign - Query Mailchimp Campaigns using SQL"
+description: "Allows users to query Mailchimp Campaigns, specifically the details of individual campaigns, providing insights into campaign performance and engagement metrics."
+---
 
-Any distributed content, that's created and measured in Mailchimp, including regular emails, automations, landing pages, and ads.
+# Table: mailchimp_campaign - Query Mailchimp Campaigns using SQL
+
+Mailchimp campaigns are a key resource within the Mailchimp platform, designed to create, send, and track email marketing campaigns. These campaigns can be categorized into various types such as regular, automated, RSS, A/B testing, and more. Each campaign carries crucial information about the content, audience, schedule, performance, and other related details.
+
+## Table Usage Guide
+
+The `mailchimp_campaign` table provides insights into Mailchimp campaigns within the Mailchimp email marketing platform. As a marketing analyst or data scientist, explore campaign-specific details through this table, including content, audience, schedule, and performance metrics. Utilize it to uncover information about campaigns, such as those with high engagement rates, the performance of various campaign types, and the verification of campaign schedules.
 
 ## Examples
 
 ### Basic info
+Explore which marketing campaigns have been most effective by analyzing their status, type, and the number of emails sent. This can help you optimize your future campaigns by understanding what has worked well in the past.
 
 ```sql
 select
@@ -21,6 +31,7 @@ from
 ```
 
 ### Get the list settings for each campaign
+Explore the configuration of each marketing campaign to understand the targeted recipient group, including the specific list and segment used, as well as the total number of recipients. This can help optimize your marketing efforts by identifying the most effective recipient groups.
 
 ```sql
 select
@@ -35,6 +46,7 @@ from
 ```
 
 ### Get the settings for each campaign
+Explore the various settings for each marketing campaign to gain insights into their configuration and assess the elements within each one, such as authentication, automatic features, and social media integration. This can help in understanding the campaign structure and optimizing future campaigns.
 
 ```sql
 select
@@ -60,6 +72,7 @@ from
 ```
 
 ### Get the tracking options for each campaign
+This query is useful for understanding the various tracking options available for each of your campaigns. It provides insights into the different analytics tools being used, which can help optimize your marketing strategies.
 
 ```sql
 select
@@ -76,6 +89,7 @@ from
 ```
 
 ### Get the report summary for each campaign
+Gain insights into the performance of each marketing campaign by examining key metrics such as open rates, click rates, and ecommerce revenue. This allows you to evaluate the effectiveness of each campaign and make data-driven decisions for future marketing strategies.
 
 ```sql
 select
@@ -94,6 +108,7 @@ from
 ```
 
 ### List campaigns having delivery status enabled
+Explore which campaigns are currently active by examining their delivery status. This can be beneficial for assessing ongoing marketing strategies and ensuring all campaigns are functioning as expected.
 
 ```sql
 select
@@ -110,6 +125,7 @@ where
 ```
 
 ### List campaigns in each folder
+Explore which marketing campaigns are organized under each folder, allowing you to understand the structure of your marketing efforts and identify potential areas for reorganization.
 
 ```sql
 select

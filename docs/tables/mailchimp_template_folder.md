@@ -1,10 +1,20 @@
-# Table: mailchimp_template_folder
+---
+title: "Steampipe Table: mailchimp_template_folder - Query Mailchimp Template Folders using SQL"
+description: "Allows users to query Mailchimp Template Folders, providing insights into the template folders used for organizing campaign templates."
+---
 
-A template is an HTML file used to create the layout and basic design for a campaign. Templates can be organized using folders.
+# Table: mailchimp_template_folder - Query Mailchimp Template Folders using SQL
+
+Mailchimp Template Folders are a feature within Mailchimp that allows users to organize and manage their campaign templates. These folders help in maintaining a structured and easily navigable template library. They are particularly beneficial for users with a large number of templates, enabling them to categorize templates based on various criteria such as campaign type, design, content, and more.
+
+## Table Usage Guide
+
+The `mailchimp_template_folder` table provides insights into the template folders in Mailchimp. If you are a marketing professional or a campaign manager, this table is extremely beneficial for you as it allows you to explore details about your template folders, including their names, creation dates, and associated templates. Utilize this table to manage and organize your campaign templates more effectively and efficiently.
 
 ## Examples
 
 ### Basic info
+Explore which Mailchimp template folders have the highest count to optimize your email marketing efforts. This can help in identifying popular templates and strategizing your marketing campaigns accordingly.
 
 ```sql
 select
@@ -16,6 +26,7 @@ from
 ```
 
 ### List templates in each folder
+Explore which templates are associated with each folder in your Mailchimp account. This is useful for organizing and managing your email marketing campaigns.
 
 ```sql
 select

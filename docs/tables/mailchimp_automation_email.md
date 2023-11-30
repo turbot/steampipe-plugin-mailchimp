@@ -1,10 +1,20 @@
-# Table: mailchimp_automation_email
+---
+title: "Steampipe Table: mailchimp_automation_email - Query Mailchimp Automation Emails using SQL"
+description: "Allows users to query Automation Emails in Mailchimp, specifically the email details in an automation workflow, providing insights into email marketing campaigns and automation workflows."
+---
 
-Mailchimp's classic automations feature lets you build a series of emails that send to subscribers when triggered by a specific date, activity, or event. Automation emails are individual emails in a classic automation workflow.
+# Table: mailchimp_automation_email - Query Mailchimp Automation Emails using SQL
+
+Mailchimp Automation is a feature within Mailchimp that allows marketers to create targeted emails that send when triggered by a specific date, event, or contact's activity. It provides a way to build and manage automated marketing campaigns, including the ability to send a series of emails to contacts who meet certain conditions. Mailchimp Automation helps users stay informed about the performance of their marketing campaigns and take appropriate actions when predefined conditions are met.
+
+## Table Usage Guide
+
+The `mailchimp_automation_email` table provides insights into automation emails within Mailchimp. As a marketing professional, explore email-specific details through this table, including the status, send time, and associated metadata. Utilize it to uncover information about emails, such as those with high engagement rates, the timing of emails, and the verification of send conditions.
 
 ## Examples
 
 ### Basic info
+Explore the timing, status, and associated workflow of your automated emails within Mailchimp. This allows you to gain insights into your email marketing strategy's effectiveness and make necessary adjustments.
 
 ```sql
 select
@@ -22,6 +32,7 @@ from
 ```
 
 ### Get delay settings of an automation email
+Explore the delay settings of an automated email to understand how long it waits before taking action. This can be useful in optimizing the timing of your email campaigns.
 
 ```sql
 select
@@ -35,6 +46,7 @@ from
 ```
 
 ### Get recipient settings of an automation email
+Explore the specific settings of automated emails to understand the recipient details and segmentation conditions. This can be beneficial in tailoring your marketing strategies by analyzing the recipient's segmentation conditions and preferences.
 
 ```sql
 select
@@ -48,6 +60,7 @@ from
 ```
 
 ### Get settings of an automation email
+Analyze the settings of an automated email to understand its various features such as authentication, auto posting on Facebook, auto footer, drag and drop functionality, Facebook comments, sender's name, inline CSS, reply-to address, subject line, and title.
 
 ```sql
 select

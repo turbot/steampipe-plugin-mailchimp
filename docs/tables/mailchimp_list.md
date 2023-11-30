@@ -1,10 +1,20 @@
-# Table: mailchimp_list
+---
+title: "Steampipe Table: mailchimp_list - Query Mailchimp Lists using SQL"
+description: "Allows users to query Mailchimp Lists, providing insights into subscriber lists and their associated details."
+---
 
-Mailchimp list is a database containing information about your contacts to whom you send emails in bulk using Mailchimp.
+# Table: mailchimp_list - Query Mailchimp Lists using SQL
+
+Mailchimp Lists are a fundamental component of the Mailchimp platform. They represent a collection of contacts and subscribers that users can target and manage for marketing campaigns. Lists contain detailed information about subscribers, including their email addresses, subscription status, and other associated data.
+
+## Table Usage Guide
+
+The `mailchimp_list` table provides insights into Lists within Mailchimp. As a marketing professional or business owner, explore list-specific details through this table, including subscriber count, campaign statistics, and associated metadata. Utilize it to uncover information about your Lists, such as those with high unsubscribe rates, the growth of your lists over time, and the performance of your marketing campaigns.
 
 ## Examples
 
 ### Basic info
+Gain insights into your Mailchimp lists by identifying their creation dates and visibility settings. This can help you understand the evolution of your email marketing efforts and assess the accessibility of your lists.
 
 ```sql
 select
@@ -17,6 +27,7 @@ from
 ```
 
 ### Get the campaign defaults of each audience
+Explore the default settings of each marketing campaign to understand the sender's email and name, the subject line, and the language used. This could be beneficial for assessing consistency in branding or identifying areas for personalization.
 
 ```sql
 select
@@ -30,6 +41,7 @@ from
 ```
 
 ### Get the contact information of each audience
+Explore which audience members are associated with specific companies and locations. This is useful for tailoring marketing campaigns or communications to specific geographical areas or business sectors.
 
 ```sql
 select
@@ -47,6 +59,7 @@ from
 ```
 
 ### Get the stats of each audience
+Explore the performance of each audience segment by evaluating statistics such as total contacts, unsubscribe rate, and campaign engagement. This information can be used to understand audience behavior and optimize your marketing strategies.
 
 ```sql
 select

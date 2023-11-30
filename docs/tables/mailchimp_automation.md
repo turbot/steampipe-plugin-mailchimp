@@ -1,10 +1,20 @@
-# Table: mailchimp_automation
+---
+title: "Steampipe Table: mailchimp_automation - Query Mailchimp Automations using SQL"
+description: "Allows users to query Automations in Mailchimp, specifically the details of each automation, providing insights into email marketing campaigns and their performance."
+---
 
-Mailchimp's classic automations feature lets you build a series of emails that send to subscribers when triggered by a specific date, activity, or event.
+# Table: mailchimp_automation - Query Mailchimp Automations using SQL
+
+Mailchimp Automations are a feature within the Mailchimp email marketing service that allows users to create and manage automated email campaigns. These campaigns can be set up to trigger based on specific conditions, such as user behavior or predefined schedules. Automations are a powerful tool for enhancing customer engagement and optimizing marketing efforts.
+
+## Table Usage Guide
+
+The `mailchimp_automation` table provides insights into Automations within Mailchimp. As a digital marketer, explore automation-specific details through this table, including campaign settings, trigger events, and associated metadata. Utilize it to uncover information about your email marketing campaigns, such as their status, the number of emails sent, and the performance of each campaign.
 
 ## Examples
 
 ### Basic info
+Explore the details of your email marketing campaigns, such as creation and start times, emails sent, and status, to gain insights into their performance and effectiveness. This can help you strategize and optimize future campaigns.
 
 ```sql
 select
@@ -19,6 +29,7 @@ from
 ```
 
 ### Get recipient settings of an automation
+Analyze the settings of an automation to understand the recipient configurations, such as the segment conditions and match options. This can be particularly useful for assessing the efficiency of your automated marketing campaigns.
 
 ```sql
 select
@@ -32,6 +43,7 @@ from
 ```
 
 ### Get settings of an automation
+Analyze the settings to understand the configuration of an automated system. This can be useful in understanding how the system is set up, including aspects such as authentication, auto footer, reply settings, and more.
 
 ```sql
 select
@@ -49,6 +61,7 @@ from
 ```
 
 ### Get tracking options of an automation
+Determine the tracking options set for an automated email marketing campaign, including various analytics and goal tracking features. This can be useful in understanding how your campaign is performing and which tracking tools are being utilized.
 
 ```sql
 select
@@ -70,6 +83,7 @@ from
 ```
 
 ### Get trigger settings of an automation
+Explore the frequency and timing of automated tasks in a mailing system, helping you understand when and how often certain automations occur, such as sending workflow emails. This insight can assist in optimizing your communication strategy.
 
 ```sql
 select
