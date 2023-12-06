@@ -11,6 +11,9 @@ Mailchimp Automation Queues are a feature of Mailchimp, a marketing automation p
 
 The `mailchimp_automation_queue` table provides insights into Mailchimp's automation queues. As a marketing professional or business owner, you can explore details about the queued emails in your Mailchimp automations, including their status, the time they are scheduled to send, and the email addresses they are being sent to. Utilize this table to monitor your email marketing campaigns, ensure your automations are working as expected, and identify any potential issues.
 
+**Important Notes**
+- You must specify the `email_id` in the `where` clause to query this table.
+
 ## Examples
 
 ### Basic info
