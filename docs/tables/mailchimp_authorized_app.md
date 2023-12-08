@@ -16,7 +16,16 @@ The `mailchimp_authorized_app` table provides insights into the apps authorized 
 ### Basic info
 Explore which authorized applications are connected to your Mailchimp account, gaining insights into their names and descriptions for better management and oversight.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  description
+from
+  mailchimp_authorized_app;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -28,7 +37,7 @@ from
 ### List users who have linked the app
 Explore which users have connected their accounts with the application, useful for understanding user engagement and app utilization.
 
-```sql
+```sql+postgres
 select
   id,
   name,
@@ -37,4 +46,15 @@ select
 from
   mailchimp_authorized_app,
   jsonb_array_elements_text(users) u;
+```
+
+```sql+sqlite
+select
+  id,
+  name,
+  description,
+  u.value as user
+from
+  mailchimp_authorized_app,
+  json_each(mailchimp_authorized_app.users) as u;
 ```

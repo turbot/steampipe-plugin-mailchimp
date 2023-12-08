@@ -16,7 +16,16 @@ The `mailchimp_campaign_folder` table provides insights into Campaign Folders wi
 ### Basic info
 Discover the segments that have been organized in your Mailchimp campaigns. This query is beneficial to understand how many campaigns are housed within each segment, allowing for efficient campaign management and strategic planning.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  count
+from
+  mailchimp_campaign_folder;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -28,7 +37,7 @@ from
 ### List campaigns in each folder
 Explore which marketing campaigns are associated with each folder in your Mailchimp account. This can help you organize and manage your campaigns more effectively.
 
-```sql
+```sql+postgres
 select
   f.id as folder_id,
   f.name as folder_name,
@@ -37,4 +46,15 @@ select
 from
   mailchimp_campaign c
   left join mailchimp_campaign_folder f on c.settings ->> 'folder_id' = f.id;
+```
+
+```sql+sqlite
+select
+  f.id as folder_id,
+  f.name as folder_name,
+  c.id as campaign_id,
+  c.title as campaign_title
+from
+  mailchimp_campaign c
+  left join mailchimp_campaign_folder f on json_extract(c.settings, '$.folder_id') = f.id;
 ```

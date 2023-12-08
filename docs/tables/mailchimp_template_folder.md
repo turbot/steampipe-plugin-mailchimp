@@ -16,7 +16,16 @@ The `mailchimp_template_folder` table provides insights into the template folder
 ### Basic info
 Explore which Mailchimp template folders have the highest count to optimize your email marketing efforts. This can help in identifying popular templates and strategizing your marketing campaigns accordingly.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  count
+from
+  mailchimp_template_folder;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -28,7 +37,18 @@ from
 ### List templates in each folder
 Explore which templates are associated with each folder in your Mailchimp account. This is useful for organizing and managing your email marketing campaigns.
 
-```sql
+```sql+postgres
+select
+  f.id as folder_id,
+  f.name as folder_name,
+  t.id as template_id,
+  t.title as template_title
+from
+  mailchimp_template t
+  left join mailchimp_template_folder f on t.folder_id = f.id;
+```
+
+```sql+sqlite
 select
   f.id as folder_id,
   f.name as folder_name,

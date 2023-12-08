@@ -16,7 +16,17 @@ The `mailchimp_list` table provides insights into Lists within Mailchimp. As a m
 ### Basic info
 Gain insights into your Mailchimp lists by identifying their creation dates and visibility settings. This can help you understand the evolution of your email marketing efforts and assess the accessibility of your lists.
 
-```sql
+```sql+postgres
+select
+  id,
+  name,
+  date_created,
+  visibility
+from
+  mailchimp_list;
+```
+
+```sql+sqlite
 select
   id,
   name,
@@ -29,7 +39,7 @@ from
 ### Get the campaign defaults of each audience
 Explore the default settings of each marketing campaign to understand the sender's email and name, the subject line, and the language used. This could be beneficial for assessing consistency in branding or identifying areas for personalization.
 
-```sql
+```sql+postgres
 select
   id,
   campaign_defaults ->> 'from_email' as from_email,
@@ -40,10 +50,21 @@ from
   mailchimp_list;
 ```
 
+```sql+sqlite
+select
+  id,
+  json_extract(campaign_defaults, '$.from_email') as from_email,
+  json_extract(campaign_defaults, '$.from_name') as from_name,
+  json_extract(campaign_defaults, '$.subject') as subject,
+  json_extract(campaign_defaults, '$.language') as language
+from
+  mailchimp_list;
+```
+
 ### Get the contact information of each audience
 Explore which audience members are associated with specific companies and locations. This is useful for tailoring marketing campaigns or communications to specific geographical areas or business sectors.
 
-```sql
+```sql+postgres
 select
   id,
   contact ->> 'company' as company,
@@ -58,10 +79,25 @@ from
   mailchimp_list;
 ```
 
+```sql+sqlite
+select
+  id,
+  json_extract(contact, '$.company') as company,
+  json_extract(contact, '$.address1') as address1,
+  json_extract(contact, '$.address2') as address2,
+  json_extract(contact, '$.city') as city,
+  json_extract(contact, '$.state') as state,
+  json_extract(contact, '$.zip') as zip,
+  json_extract(contact, '$.country') as country,
+  json_extract(contact, '$.phone') as phone
+from
+  mailchimp_list;
+```
+
 ### Get the stats of each audience
 Explore the performance of each audience segment by evaluating statistics such as total contacts, unsubscribe rate, and campaign engagement. This information can be used to understand audience behavior and optimize your marketing strategies.
 
-```sql
+```sql+postgres
 select
   id,
   stats ->> 'member_count' as member_count,
@@ -81,6 +117,30 @@ select
   stats ->> 'click_rate' as click_rate,
   stats ->> 'last_sub_date' as last_subscribe_date,
   stats ->> 'last_unsub_date' as last_unsubscribe_date
+from
+  mailchimp_list;
+```
+
+```sql+sqlite
+select
+  id,
+  json_extract(stats, '$.member_count') as member_count,
+  json_extract(stats, '$.total_contacts') as total_contacts,
+  json_extract(stats, '$.unsubscribe_count') as unsubscribe_count,
+  json_extract(stats, '$.cleaned_count') as cleaned_count,
+  json_extract(stats, '$.member_count_since_send') as member_count_since_send,
+  json_extract(stats, '$.unsubscribe_count_since_send') as unsubscribe_count_since_send,
+  json_extract(stats, '$.cleaned_count_since_send') as cleaned_count_since_send,
+  json_extract(stats, '$.campaign_count') as campaign_count,
+  json_extract(stats, '$.campaign_last_sent') as campaign_last_sent,
+  json_extract(stats, '$.merge_field_count') as merge_field_count,
+  json_extract(stats, '$.avg_sub_rate') as avg_subscribe_rate,
+  json_extract(stats, '$.avg_unsub_rate') as avg_unsubscribe_rate,
+  json_extract(stats, '$.target_sub_rate') as target_subscribe_rate,
+  json_extract(stats, '$.open_rate') as open_rate,
+  json_extract(stats, '$.click_rate') as click_rate,
+  json_extract(stats, '$.last_sub_date') as last_subscribe_date,
+  json_extract(stats, '$.last_unsub_date') as last_unsubscribe_date
 from
   mailchimp_list;
 ```

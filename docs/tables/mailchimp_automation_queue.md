@@ -19,7 +19,21 @@ The `mailchimp_automation_queue` table provides insights into Mailchimp's automa
 ### Basic info
 Analyze the settings to understand the details of queued emails in a specific Mailchimp automation. This can be used to pinpoint the specific locations where a particular email is scheduled to be sent, providing insights into your email marketing strategy.
 
-```sql
+```sql+postgres
+select
+  id,
+  email_id,
+  email_address,
+  list_id,
+  next_send,
+  workflow_id
+from
+  mailchimp_automation_queue
+where
+  email_id = '123abc';
+```
+
+```sql+sqlite
 select
   id,
   email_id,
@@ -36,7 +50,7 @@ where
 ### Check if an email is automated to be sent in the next 3 days
 Gauge whether an automated email is scheduled to be dispatched within the next three days. This can be beneficial for managing communications and ensuring timely delivery of important messages.
 
-```sql
+```sql+postgres
 select
   id,
   email_id,
@@ -49,4 +63,19 @@ from
 where
   email_id = '123abc'
   and next_send <= now() - interval '3' day;
+```
+
+```sql+sqlite
+select
+  id,
+  email_id,
+  email_address,
+  list_id,
+  next_send,
+  workflow_id
+from
+  mailchimp_automation_queue
+where
+  email_id = '123abc'
+  and next_send <= datetime('now', '-3 day');
 ```

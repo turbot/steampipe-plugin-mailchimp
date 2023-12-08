@@ -16,7 +16,22 @@ The `mailchimp_automation_email` table provides insights into automation emails 
 ### Basic info
 Explore the timing, status, and associated workflow of your automated emails within Mailchimp. This allows you to gain insights into your email marketing strategy's effectiveness and make necessary adjustments.
 
-```sql
+```sql+postgres
+select
+  id,
+  content_type,
+  create_time,
+  emails_sent,
+  position,
+  send_time,
+  start_time,
+  status,
+  workflow_id
+from
+  mailchimp_automation_email;
+```
+
+```sql+sqlite
 select
   id,
   content_type,
@@ -34,7 +49,7 @@ from
 ### Get delay settings of an automation email
 Explore the delay settings of an automated email to understand how long it waits before taking action. This can be useful in optimizing the timing of your email campaigns.
 
-```sql
+```sql+postgres
 select
   id,
   delay ->> 'action' as delay_action,
@@ -45,10 +60,21 @@ from
   mailchimp_automation_email;
 ```
 
+```sql+sqlite
+select
+  id,
+  json_extract(delay, '$.action') as delay_action,
+  json_extract(delay, '$.amount') as delay_amount,
+  json_extract(delay, '$.direction') as delay_direction,
+  json_extract(delay, '$.type') as delay_type
+from
+  mailchimp_automation_email;
+```
+
 ### Get recipient settings of an automation email
 Explore the specific settings of automated emails to understand the recipient details and segmentation conditions. This can be beneficial in tailoring your marketing strategies by analyzing the recipient's segmentation conditions and preferences.
 
-```sql
+```sql+postgres
 select
   id,
   recipients ->> 'list_id' as recipient_list_id,
@@ -59,10 +85,21 @@ from
   mailchimp_automation_email;
 ```
 
+```sql+sqlite
+select
+  id,
+  json_extract(recipients, '$.list_id') as recipient_list_id,
+  json_extract(recipients, '$.segment_options.conditions') as recipient_segment_conditions,
+  json_extract(recipients, '$.segment_options.match') as recipient_segment_match,
+  json_extract(recipients, '$.segment_options.saved_segment_id') as saved_segment_id
+from
+  mailchimp_automation_email;
+```
+
 ### Get settings of an automation email
 Analyze the settings of an automated email to understand its various features such as authentication, auto posting on Facebook, auto footer, drag and drop functionality, Facebook comments, sender's name, inline CSS, reply-to address, subject line, and title.
 
-```sql
+```sql+postgres
 select
   id,
   settings ->> 'authenticate' as authenticate,
@@ -76,6 +113,24 @@ select
   settings ->> 'reply_to' as reply_to,
   settings ->> 'subject_line' as subject_line,
   settings ->> 'title' as title
+from
+  mailchimp_automation_email;
+```
+
+```sql+sqlite
+select
+  id,
+  json_extract(settings, '$.authenticate') as authenticate,
+  json_extract(settings, '$.auto_fb_post') as auto_fb_post,
+  json_extract(settings, '$.auto_footer') as auto_footer,
+  json_extract(settings, '$.auto_tweet') as auto_footer,
+  json_extract(settings, '$.drag_and_drop') as drag_and_drop,
+  json_extract(settings, '$.fb_comments') as fb_comments,
+  json_extract(settings, '$.from_name') as from_name,
+  json_extract(settings, '$.inline_css') as inline_css,
+  json_extract(settings, '$.reply_to') as reply_to,
+  json_extract(settings, '$.subject_line') as subject_line,
+  json_extract(settings, '$.title') as title
 from
   mailchimp_automation_email;
 ```
