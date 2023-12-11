@@ -85,7 +85,4 @@ Alternatively, you can also use the standard Mailchimp environment variables to 
 export MAILCHIMP_API_KEY=q8355689e3e6f9fd0f5630362b16b1b5-us21
 ```
 
-## Get involved
 
-- Open source: https://github.com/turbot/steampipe-plugin-mailchimp
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
