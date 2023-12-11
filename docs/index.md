@@ -8,6 +8,7 @@ short_name: "mailchimp"
 description: "Steampipe plugin to query audiences, automation workflows, campaigns, and more from Mailchimp."
 og_description: "Query Mailchimp with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/mailchimp-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Mailchimp + Steampipe
