@@ -13,9 +13,9 @@ engines: ["steampipe", "sqlite", "postgres", "export"]
 
 # Mailchimp + Steampipe
 
-[Mailchimp](https://mailchimp.com) is a marketing automation and email marketing platform.
-
 [Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
+
+[Mailchimp](https://mailchimp.com) is a marketing automation and email marketing platform.
 
 List details of your Mailchimp campaign:
 
@@ -84,5 +84,3 @@ Alternatively, you can also use the standard Mailchimp environment variables to 
 ```sh
 export MAILCHIMP_API_KEY=q8355689e3e6f9fd0f5630362b16b1b5-us21
 ```
-
-
