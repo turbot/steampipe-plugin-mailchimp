@@ -8,13 +8,14 @@ short_name: "mailchimp"
 description: "Steampipe plugin to query audiences, automation workflows, campaigns, and more from Mailchimp."
 og_description: "Query Mailchimp with SQL! Open source CLI. No DB required."
 og_image: "/images/plugins/turbot/mailchimp-social-graphic.png"
+engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
 # Mailchimp + Steampipe
 
-[Mailchimp](https://mailchimp.com) is a marketing automation and email marketing platform.
+[Steampipe](https://steampipe.io) is an open-source zero-ETL engine to instantly query cloud APIs using SQL.
 
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+[Mailchimp](https://mailchimp.com) is a marketing automation and email marketing platform.
 
 List details of your Mailchimp campaign:
 
@@ -83,8 +84,3 @@ Alternatively, you can also use the standard Mailchimp environment variables to 
 ```sh
 export MAILCHIMP_API_KEY=q8355689e3e6f9fd0f5630362b16b1b5-us21
 ```
-
-## Get involved
-
-- Open source: https://github.com/turbot/steampipe-plugin-mailchimp
-- Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
