@@ -22,7 +22,7 @@ func tableMailchimpStore(_ context.Context) *plugin.Table {
 			KeyColumns: plugin.AllColumns([]string{"id"}),
 			Hydrate:    getStore,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "The unique identifier for the store.",
@@ -105,7 +105,7 @@ func tableMailchimpStore(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Name"),
 			},
-		},
+		}),
 	}
 }
 

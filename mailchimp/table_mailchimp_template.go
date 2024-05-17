@@ -43,7 +43,7 @@ func tableMailchimpTemplate(_ context.Context) *plugin.Table {
 			KeyColumns: plugin.AllColumns([]string{"id"}),
 			Hydrate:    getTemplate,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "The ID for the application.",
@@ -113,7 +113,7 @@ func tableMailchimpTemplate(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Name"),
 			},
-		},
+		}),
 	}
 }
 

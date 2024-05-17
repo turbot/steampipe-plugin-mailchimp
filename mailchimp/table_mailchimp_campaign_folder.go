@@ -18,7 +18,7 @@ func tableMailchimpCampaignFolder(_ context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listCampaignFolders,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "A string that uniquely identifies this campaign folder.",
@@ -43,7 +43,7 @@ func tableMailchimpCampaignFolder(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Name"),
 			},
-		},
+		}),
 	}
 }
 

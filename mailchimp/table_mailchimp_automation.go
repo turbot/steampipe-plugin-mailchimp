@@ -23,7 +23,7 @@ func tableMailchimpAutomation(_ context.Context) *plugin.Table {
 			KeyColumns: plugin.AllColumns([]string{"id"}),
 			Hydrate:    getAutomation,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "The unique identifier for the automation.",
@@ -92,7 +92,7 @@ func tableMailchimpAutomation(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Settings.Title"),
 			},
-		},
+		}),
 	}
 }
 

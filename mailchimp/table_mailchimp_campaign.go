@@ -54,7 +54,7 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 			},
 			Hydrate: getCampaign,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "A string that uniquely identifies this campaign.",
@@ -156,7 +156,7 @@ func tableMailchimpCampaign(_ context.Context) *plugin.Table {
 				Transform:   transform.FromField("Settings.Title"),
 				Type:        proto.ColumnType_STRING,
 			},
-		},
+		}),
 	}
 }
 

@@ -20,6 +20,12 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		ConnectionConfigSchema: &plugin.ConnectionConfigSchema{
 			NewInstance: ConfigInstance,
 		},
+		ConnectionKeyColumns: []plugin.ConnectionKeyColumn{
+			{
+				Name:    "account_id",
+				Hydrate: getAccountId,
+			},
+		},
 		TableMap: map[string]*plugin.Table{
 			"mailchimp_authorized_app":   tableMailchimpAuthorizedApp(ctx),
 			"mailchimp_automation_email": tableMailchimpAutomationEmail(ctx),
