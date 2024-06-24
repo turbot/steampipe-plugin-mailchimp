@@ -50,13 +50,11 @@ func getAccountUncached(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
-		logger.Error("mailchimp_root.listRoots", "connection_error", err)
 		return nil, err
 	}
 
 	root, err := client.GetRoot(&gochimp3.BasicQueryParams{})
 	if err != nil {
-		logger.Error("mailchimp_root.listRoots", "api_error", err)
 		return nil, err
 	}
 
