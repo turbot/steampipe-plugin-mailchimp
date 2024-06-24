@@ -22,7 +22,7 @@ func tableMailchimpBatchOperation(_ context.Context) *plugin.Table {
 			KeyColumns: plugin.AllColumns([]string{"id"}),
 			Hydrate:    getBatchOperation,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "The unique identifier for the batch request.",
@@ -64,7 +64,7 @@ func tableMailchimpBatchOperation(_ context.Context) *plugin.Table {
 				Description: "The total number of operations to complete as part of this batch request. For GET requests requiring pagination, each page counts as a separate operation.",
 				Type:        proto.ColumnType_INT,
 			},
-		},
+		}),
 	}
 }
 

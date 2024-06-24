@@ -18,7 +18,7 @@ func tableMailchimpTemplateFolder(_ context.Context) *plugin.Table {
 		List: &plugin.ListConfig{
 			Hydrate: listTemplateFolders,
 		},
-		Columns: []*plugin.Column{
+		Columns: commonColumns([]*plugin.Column{
 			{
 				Name:        "id",
 				Description: "A string that uniquely identifies this template folder.",
@@ -43,7 +43,7 @@ func tableMailchimpTemplateFolder(_ context.Context) *plugin.Table {
 				Type:        proto.ColumnType_STRING,
 				Transform:   transform.FromField("Name"),
 			},
-		},
+		}),
 	}
 }
 
