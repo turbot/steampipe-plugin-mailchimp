@@ -46,7 +46,6 @@ func getAccountCacheKey(ctx context.Context, d *plugin.QueryData, h *plugin.Hydr
 }
 
 func getAccountUncached(ctx context.Context, d *plugin.QueryData, h *plugin.HydrateData) (interface{}, error) {
-	logger := plugin.Logger(ctx)
 
 	client, err := connectMailchimp(ctx, d)
 	if err != nil {
