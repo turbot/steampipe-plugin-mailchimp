@@ -6,7 +6,7 @@ toolchain go1.23.2
 
 require (
 	github.com/hanzoai/gochimp3 v0.0.0-20210305004051-da66ea724147
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.11.6
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.11.7
 )
 
 require (
