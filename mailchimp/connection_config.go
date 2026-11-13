@@ -1,7 +1,7 @@
 package mailchimp
 
 import (
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 type mailchimpConfig struct {
@@ -14,9 +14,9 @@ func ConfigInstance() interface{} {
 
 // GetConfig :: retrieve and cast connection config from query data
 func GetConfig(connection *plugin.Connection) mailchimpConfig {
-	if connection == nil || connection.Config == nil {
+	if connection == nil || connection.GetConfig() == nil {
 		return mailchimpConfig{}
 	}
-	config, _ := connection.Config.(mailchimpConfig)
+	config, _ := connection.GetConfig().(mailchimpConfig)
 	return config
 }
