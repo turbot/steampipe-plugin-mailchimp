@@ -6,14 +6,14 @@ import (
 	"os"
 
 	"github.com/hanzoai/gochimp3"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 func connectMailchimp(ctx context.Context, d *plugin.QueryData) (*gochimp3.API, error) {
 
 	// Load connection from cache, which preserves throttling protection etc
 	cacheKey := "mailchimp"
-	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
+	if cachedData, ok := d.ConnectionCache.Get(ctx, cacheKey); ok {
 		return cachedData.(*gochimp3.API), nil
 	}
 
@@ -33,7 +33,7 @@ func connectMailchimp(ctx context.Context, d *plugin.QueryData) (*gochimp3.API, 
 
 	client := gochimp3.New(apiKey)
 	if client != nil {
-		d.ConnectionManager.Cache.Set(cacheKey, client)
+		_ = d.ConnectionCache.Set(ctx, cacheKey, client)
 	}
 
 	return client, nil
